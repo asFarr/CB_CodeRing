@@ -1,5 +1,17 @@
-"""LeToads' Encoder Ring v1.0 - """  # TODO: Finish module docstring
+"""
+The CerealBox toolkit: Code Ring Encoder Module (v1.0) - by leToads : 2/25/22
 
+A script-ready tool for recursive encoding of
+input data provided from stdin or file input.
+
+    Usage: python ring.py -e (-i <inputfile> -o <outputfile>), -t/-b
+    Examples:
+    ring.py -et   -   Process console text input from stdin to encode.
+    ring.py -eb   -   Process console binary input from stdin to encode.
+    ring.py -e -i <infile> -o <outfile> -t   -   Process text file input to encode.
+    ring.py -e -i <infile> -o <outfile> -b   -   Process binary file input to encode.
+
+"""
 import getopt
 import sys
 import time
@@ -95,7 +107,7 @@ def bin_file(infp, outfp):  # TODO: Refine algorithm
 
 
 def main(argv):
-    """Main Driver - Parse CLI flags/options and run the related subprogram."""
+    """Main Driver - Parse CLI flags/options and run the related function."""
     if not argv:
         argument_list = ['-a', '-h']
     else:
