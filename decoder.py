@@ -12,6 +12,7 @@ input data provided from stdin or file input.
     ring.py -d -i <infile> -o <outfile> -b   -   Process binary file input to decode.
 
 """
+
 import getopt
 import sys
 import time
@@ -22,7 +23,7 @@ rot13 = bytes.maketrans(
     b"nopqrstuvwxyzabcdefghijklmNOPQRSTUVWXYZABCDEFGHIJKLM0987654321")
 
 
-def text_lit():  # TODO: Refactor algorithm for decoding
+def text_lit():  # TODO: Add -v/-s cases
     """Text stdin processing and encoding subprogram."""
     print("Text Literals")
     input_text = input('Plaintext: ')
@@ -30,19 +31,22 @@ def text_lit():  # TODO: Refactor algorithm for decoding
     i = 0
     iterations = int(input('Number of iterations: '))
     while i < iterations:
+        temp = bytes.fromhex(temp)
+        print(str(temp)[4:-2])
+        time.sleep(0.5)
         temp = temp.translate(rot13)
-        print("ROT result: " + temp)
+        print(str(temp)[4:-2])
         time.sleep(0.5)
-        temp = temp.encode('utf-8').hex()
-        print("Hex result: " + temp)
-        time.sleep(0.5)
-        temp = str(base64.b64encode(temp.encode('utf-8')), 'utf-8')
-        print("Base64 result: " + temp)
+        temp = base64.b64decode(temp[2:-1])
+        temp = str(temp)[2:-1]
+        print(temp)
         time.sleep(0.5)
         i += 1
 
 
-def text_file(infp, outfp):  # TODO: Refactor algorithm for decoding
+def text_file(infp, outfp):
+    # TODO: Add FNF handling w/ create file dialog
+    # TODO: Add -v/-s cases
     """Text file processing and encoding subprogram."""
     print("Text Files")
     j = 0
@@ -50,21 +54,22 @@ def text_file(infp, outfp):  # TODO: Refactor algorithm for decoding
         temp = infile.read()
         iterations = int(input('Number of iterations: '))
         while j < iterations:
-            temp = base64.b64encode(bytes(str(temp), 'utf-8'))
-            print("Base64 result: " + str(temp))
-            time.sleep(0.5)
-            temp = bytes.hex(temp).encode('utf-8')
+            temp = bytes.fromhex(temp)
             print("Hex result: " + str(temp))
             time.sleep(0.5)
-            temp = bytes(str(temp).translate(rot13), 'utf-8')
+            temp = temp.translate(rot13)
             print("ROT result: " + str(temp))
+            time.sleep(0.5)
+            temp = base64.b64decode(temp[2:-1])
+            temp = str(temp)[2:-1]
+            print("Base64 result: " + temp)
             time.sleep(0.5)
             j += 1
         with open(outfp, 'w', encoding='utf-8') as outfile:
             outfile.write(str(temp))
 
 
-def bin_lit():  # TODO: Refactor algorithm for decoding
+def bin_lit():  # TODO: Add -v/-s cases
     """Binary stdin processing and encoding subprogram."""
     print("Binary Literals")
     input_text = input('Plaintext: ')
@@ -72,41 +77,47 @@ def bin_lit():  # TODO: Refactor algorithm for decoding
     i = 0
     iterations = int(input('Number of iterations: '))
     while i < iterations:
+        temp = bytes.fromhex(temp)
+        print(str(temp)[2:-1])
+        time.sleep(0.5)
         temp = temp.translate(rot13)
-        print("ROT result: " + temp)
+        print(str(temp)[2:-1])
         time.sleep(0.5)
-        temp = temp.encode('utf-8').hex()
-        print("Hex result: " + temp)
-        time.sleep(0.5)
-        temp = str(base64.b64encode(temp.encode('utf-8')), 'utf-8')
-        print("Base64 result: " + temp)
+        temp = base64.b64decode(temp)
+        print(str(temp)[2:-1])
         time.sleep(0.5)
         i += 1
 
 
-def bin_file(infp, outfp):  # TODO: Refactor algorithm for decoding
+def bin_file(infp, outfp):
+    # TODO: Add FNF handling w/ create file dialog
+    # TODO: Add -v/-s cases
     """Binary File processing and encoding subprogram."""
-    print("Text Files")
+    print("Binary Files")
     j = 0
-    with open(infp, 'r', encoding='utf-8') as infile:
+    with open(infp, 'rb') as infile:
         temp = infile.read()
         iterations = int(input('Number of iterations: '))
         while j < iterations:
-            temp = base64.b64encode(bytes(str(temp), 'utf-8'))
-            print("Base64 result: " + str(temp))
+            temp = bytes.fromhex(str(temp.decode('utf-8')))
+            print("Hex result: " + str(temp)[2:-1])
             time.sleep(0.5)
-            temp = bytes.hex(temp).encode('utf-8')
-            print("Hex result: " + str(temp))
+            temp = temp.translate(rot13)
+            print("ROT result: " + str(temp)[2:-1])
             time.sleep(0.5)
-            temp = bytes(str(temp).translate(rot13), 'utf-8')
-            print("ROT result: " + str(temp))
+            temp = base64.b64decode(temp)
+            print("Base64 result: " + str(temp)[2:-1])
             time.sleep(0.5)
             j += 1
-        with open(outfp, 'w', encoding='utf-8') as outfile:
-            outfile.write(str(temp))
+        with open(outfp, 'wb') as outfile:
+            outfile.write(temp)
 
 
 def main(argv):
+    # TODO: Add flag to pass iteration count into algorithms
+    # TODO: Add flag to suppress dialogs and pass defaults
+    # TODO: Add flag to run at full verbosity
+
     """Main Driver - Parse CLI flags/options and run the related function."""
     if not argv:
         argument_list = ['-a', '-h']
