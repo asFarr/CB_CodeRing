@@ -95,7 +95,7 @@ def author():
         print(i)
 
 
-def helpme():  # TODO: Update help dialog for -r : repetitions, -s : suppress, and -v : verbose
+def helpme():
     """Print the help and usage dialog."""
     usage = ["The CerealBox toolkit Code Ring (v1.0) - by leToads : 2/25/22\n",
              "A script-ready tool for recursive encoding/decoding of input "
@@ -122,10 +122,6 @@ def helpme():  # TODO: Update help dialog for -r : repetitions, -s : suppress, a
 
 
 def main(argv):
-    # TODO: Add flag to pass iteration count into algorithms
-    # TODO: Add flag to suppress dialogs and pass defaults
-    # TODO: Add flag to run at full verbosity
-
     """Main Driver - Parse CLI flags/options and run the related subprogram."""
     if not argv:
         argument_list = ['-a', '-h']
