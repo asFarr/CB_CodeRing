@@ -4,10 +4,13 @@ The CerealBox toolkit: Code Ring (v1.0) - by leToads : 2/25/22
 A script-ready tool for recursive encoding/decoding of
 input data provided from stdin or file input.
 
-    Usage: python ring.py {-a, -h}, {-e|-d} (-i <inputfile> -o <outputfile>), -t/-b
+    Usage: python ring.py {-a, -h, -s} (-r <iterations>) {-e|-d} (-i <inputfile> -o <outputfile>), -t/-b"
+    If -r is not specified, iterations defaults to 1.
+
     Examples:
-    ring.py -h   -   Display the help dialog.
-    ring.py -a   -   Display the author tag.
+    ring.py -a    -   Display the author tag.
+    ring.py -h    -   Display the help dialog.
+    ring.py -s... -   Run tool with output suppressed, for script integration.
     ring.py -et   -   Process console text input from stdin to encode.
     ring.py -eb   -   Process console binary input from stdin to encode.
     ring.py -e -i <infile> -o <outfile> -t   -   Process text file input to encode.
@@ -96,11 +99,13 @@ def helpme():  # TODO: Update help dialog for -r : repetitions, -s : suppress, a
     """Print the help and usage dialog."""
     usage = ["The CerealBox toolkit Code Ring (v1.0) - by leToads : 2/25/22\n",
              "A script-ready tool for recursive encoding/decoding of input "
-             "data provided from stdin or file input. \n",
-             "Usage: python ring.py {-a, -h}, {-e|-d} (-i <inputfile> -o <outputfile>), -t/-b\n",
+             "data provided from stdin or file input.\n",
+             "Usage: python ring.py {-a, -h, -s} (-r <iterations>) {-e|-d} (-i <inputfile> -o <outputfile>), -t/-b",
+             "If -r is not specified, iterations defaults to 1. \n",
              "Examples: ",
              "ring.py -h   -   Display the help dialog. ",
              "ring.py -a   -   Display the author tag.  \n",
+             "ring.py -s   -   Run tool with output suppressed, for script integration. ",
              "ring.py -et   -   Process console text input from stdin to encode. ",
              "ring.py -eb   -   Process console binary input from stdin to encode. ",
              "ring.py -e -i <infile> -o <outfile> -t   -   Process text file input to encode. ",
@@ -127,7 +132,7 @@ def main(argv):
     else:
         argument_list = argv
 
-    options = "abdehti:o:"
+    options = "abdehti:o:r:s"
     try:
         arguments, values = getopt.getopt(argument_list, options)
 
