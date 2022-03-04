@@ -1,18 +1,18 @@
 """
-The CerealBox toolkit: Code Ring Encoder Module (v1.0) - by leToads : 2/25/22
+The CerealBox toolkit: Code Ring Encoder Module (v1.1) - by asFarr : 2/25/22
 
 A script-ready tool for recursive encoding of
 input data provided from stdin or file input.
 
-    Usage: python ring.py -s (-r <iterations>) -e (-i <inputfile> -o <outputfile>), -t/-b
+    Usage: python -m ring -s (-r <iterations>) -e (-i <inputfile> -o <outputfile>), -t/-b
     If -r is not specified, iterations defaults to 1.
 
     Examples:
-    ring.py -s... -   Run tool with output suppressed, for script integration.
-    ring.py -et   -   Process console text input from stdin to encode.
-    ring.py -eb   -   Process console binary input from stdin to encode.
-    ring.py -e -i <infile> -o <outfile> -t   -   Process text file input to encode.
-    ring.py -e -i <infile> -o <outfile> -b   -   Process binary file input to encode.
+    ring -s... -   Run tool with output suppressed, for script integration.
+    ring -et   -   Process console text input from stdin to encode.
+    ring -eb   -   Process console binary input from stdin to encode.
+    ring -e -i <infile> -o <outfile> -t   -   Process text file input to encode.
+    ring -e -i <infile> -o <outfile> -b   -   Process binary file input to encode.
 
 """
 
@@ -46,13 +46,10 @@ def text_lit(is_silent, iterate):
         while i < iterate:
             temp = base64.b64encode(temp.encode('utf-8'))
             print(str(temp)[2:-1])
-            time.sleep(0.5)
             temp = bytes(str(temp).translate(rot13), 'utf-8')
             print(str(temp)[4:-2])
-            time.sleep(0.5)
             temp = bytes.hex(temp)
             print(str(temp))
-            time.sleep(0.5)
             i += 1
 
 
@@ -77,13 +74,10 @@ def text_file(is_silent, infp, outfp, iterate):
         while j < iterate:
             temp = base64.b64encode(temp.encode('utf-8'))
             print("Base64 result: " + str(temp))
-            time.sleep(0.5)
             temp = bytes(str(temp).translate(rot13), 'utf-8')
             print("ROT result: " + str(temp))
-            time.sleep(0.5)
             temp = bytes.hex(temp)
             print("Hex result: " + str(temp))
-            time.sleep(0.5)
             j += 1
         with open(outfp, 'w', encoding='utf-8') as outfile:
             outfile.write(str(temp))
@@ -109,13 +103,10 @@ def bin_lit(is_silent, iterate):
         while i < iterate:
             temp = base64.b64encode(temp)
             print(str(temp)[2:-1])
-            time.sleep(0.5)
             temp = temp.translate(rot13)
             print(str(temp)[2:-1])
-            time.sleep(0.5)
             temp = temp.hex()
             print(temp)
-            time.sleep(0.5)
             i += 1
 
 
@@ -140,13 +131,10 @@ def bin_file(is_silent, infp, outfp, iterate):
             while j < iterate:
                 temp = base64.b64encode(temp)
                 print("Base64 result: " + str(temp)[2:-1])
-                time.sleep(0.5)
                 temp = temp.translate(rot13)
                 print("ROT result: " + str(temp)[2:-1])
-                time.sleep(0.5)
                 temp = temp.hex()
                 print("Hex result: " + temp)
-                time.sleep(0.5)
                 j += 1
             with open(outfp, 'w', encoding='utf-8') as outfile:
                 outfile.write(str(temp))
