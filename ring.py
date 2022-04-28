@@ -1,5 +1,5 @@
 """
-The CerealBox toolkit: Code Ring (v1.1) - by leToads : 2/25/22
+The CerealBox toolkit: Code Ring (v1.1) - by asFarr : 2/25/22
 
 A script-ready tool for recursive encoding/decoding of
 input data provided from stdin or file input.
