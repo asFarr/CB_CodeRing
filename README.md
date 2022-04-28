@@ -3,7 +3,9 @@ CLI tool for encoding and decoding of messages from stdin or file input.
 
 
 
-Usage: python ring.py {-a, -h, -s} (-r <iterations>) {-e|-d} (-i <inputfile> -o <outputfile>), -t/-b"
+Usage: 
+    python ring.py {-a, -h, -s} (-r <iterations>) {-e|-d} (-i <inputfile> -o <outputfile>), -t/-b"
+    
     If -r is not specified, iterations defaults to 1.
 
   
