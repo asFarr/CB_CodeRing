@@ -1,4 +1,4 @@
-# The CerealBox toolkit: Code Ring (v1.0) - by leToads : 2/25/22
+# The CerealBox toolkit: Code Ring (v1.0) - by asFarr
 CLI tool for encoding and decoding of messages from stdin or file input. 
 
 
